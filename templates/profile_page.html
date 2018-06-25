@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{name}}'s Profile</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.3.1/css/flag-icon.min.css" rel="stylesheet"/>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet"
+          type='text/css'>
+    <link rel="stylesheet" href="../static/profile_page_style.css"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='profile_page_style.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <!-- header -->
+    <div class="row vcenter">
+        <div class="col-1">
+            <a href="/"><i class="fa fa-arrow-left"></i></a>
+        </div>
+        <div class="col-10 title">
+            <h1>{{ name }}</h1>
+        </div>
+        <!-- pop up Chart -->
+        <div id="chart_pop" class="popup_chart">
+            Chart data is based on how {{name}}'s data rate against countries in the world.
+            <canvas id="canvas" style="padding-top:10px; padding-bottom:20px;"></canvas>
+            <i>* The bigger the chart is, the better the rating is.</i>
+        </div>
+        <div class="col-22 chart" data-popbox="chart_pop">
+            <i class="fa fa-bar-chart"></i>
+        </div>
+    </div>
+    <hr/>
+
+    <div class="row">
+        <div class="col-7">
+            <!-- statistics -->
+            <!-- pop up text -->
+            <div id="statistic_pop" class="popup">Statistics data is acquired from <a href="https://data.worldbank.org">WorldBank</a> datasets.
+                <br>Click on the row below to get more description.
+                <br><i>data is based on 2017's result.</i>
+            </div>
+            <div class="section-title statistics vcenter">
+                <h4>Statistics</h4>
+            </div>
+            <div class="stats_info info" data-popbox="statistic_pop"><i class="fa fa-question-circle"></i></div>
+            <table class="statistics">
+                <col style="width:65%">
+                <col style="width:35%">
+
+                <tr id="population">
+                    <td class="caption">Population</td>
+                    <td>{{country.population}}</td>
+                </tr>
+                <tr id="pop_desc" class="details">
+                    <td colspan="2" class="desc">Total population is based on the de facto definition of population, which counts all residents regardless of legal status or citizenship. The values shown are midyear estimates.</td>
+                </tr>
+
+                <tr id="area">
+                    <td class="caption">Area (sq km)</td>
+                    <td>{{country.area}}</td>
+                </tr>
+                <tr id="area_desc" class="details">
+                    <td colspan="2" class="desc">Surface area is a country's total area, including areas under inland bodies of water and some coastal waterways.</td>
+                </tr>
+
+                <tr id="pop_density">
+                    <td class="caption">Population Density</td>
+                    <td>{{country.pop_density}}</td>
+                </tr>
+                <tr id="pop_density_desc" class="details">
+                    <td colspan="2" class="desc">Population density is midyear population divided by land area in square kilometers. Population is based on the de facto definition of population, which counts all residents regardless of legal status or citizenship--except for refugees not permanently settled in the country of asylum, who are generally considered part of the population of their country of origin. Land area is a country's total area, excluding area under inland water bodies, national claims to continental shelf, and exclusive economic zones. In most cases the definition of inland water bodies includes major rivers and lakes.</td>
+                </tr>
+
+                <tr id="life_expectancy">
+                    <td class="caption">Life Expectancy</td>
+                    <td>{{country.life_expectancy}}</td>
+                </tr>
+                <tr id="life_expectancy_desc" class="details">
+                    <td colspan="2" class="desc">Life expectancy at birth indicates the number of years a newborn infant would live if prevailing patterns of mortality at the time of its birth were to stay the same throughout its life.</td>
+                </tr>
+
+                <tr id="gdp">
+                    <td class="caption">GDP ($USD)</td>
+                    <td>{{country.gdp}}</td>
+                </tr>
+                <tr id="gdp_desc" class="details">
+                    <td colspan="2" class="desc">GDP at purchaser's prices is the sum of gross value added by all resident producers in the economy plus any product taxes and minus any subsidies not included in the value of the products. It is calculated without making deductions for depreciation of fabricated assets or for depletion and degradation of natural resources. Data are in current U.S. dollars. Dollar figures for GDP are converted from domestic currencies using single year official exchange rates. For a few countries where the official exchange rate does not reflect the rate effectively applied to actual foreign exchange transactions, an alternative conversion factor is used.</td>
+                </tr>
+
+                <tr id="gdp_growth">
+                    <td class="caption">GDP Growth (annual %)</td>
+                    <td>{{country.gdp_growth}}</td>
+                </tr>
+                <tr id="gdp_growth_desc" class="details">
+                    <td colspan="2" class="desc">Annual percentage growth rate of GDP at market prices based on constant local currency. Aggregates are based on constant 2010 U.S. dollars. GDP is the sum of gross value added by all resident producers in the economy plus any product taxes and minus any subsidies not included in the value of the products. It is calculated without making deductions for depreciation of fabricated assets or for depletion and degradation of natural resources.</td>
+                </tr>
+
+                <tr id="poverty">
+                    <td class="caption">Poverty (% of population)</td>
+                    <td>{{country.poverty}}</td>
+                </tr>
+                <tr id="poverty_desc" class="details">
+                    <td colspan="2" class="desc">Poverty headcount ratio at $1.90 a day is the percentage of the population living on less than $1.90 a day at 2011 international prices. As a result of revisions in PPP exchange rates, poverty rates for individual countries cannot be compared with poverty rates reported in earlier editions.</td>
+                </tr>
+
+                <tr id="birth_rate">
+                    <td class="caption">Birth Rate (per 1,000 people)</td>
+                    <td>{{country.birth_rate}}</td>
+                </tr>
+                <tr id="birth_rate_desc" class="details">
+                    <td colspan="2" class="desc">Crude birth rate indicates the number of live births occurring during the year, per 1,000 population estimated at midyear. Subtracting the crude death rate from the crude birth rate provides the rate of natural increase, which is equal to the rate of population change in the absence of migration.</td>
+                </tr>
+
+                <tr id="death_rate">
+                    <td class="caption">Death Rate (per 1,000 people)</td>
+                    <td>{{country.death_rate}}</td>
+                </tr>
+                <tr id="death_rate_desc" class="details">
+                    <td colspan="2" class="desc">Crude death rate indicates the number of deaths occurring during the year, per 1,000 population estimated at midyear. Subtracting the crude death rate from the crude birth rate provides the rate of natural increase, which is equal to the rate of population change in the absence of migration.</td>
+                </tr>
+
+                <tr id="co2_emission">
+                    <td class="caption">CO2 Emissions (tons per capita)</td>
+                    <td>{{country.co2_emissions}}</td>
+                </tr>
+                <tr id="co2_emission_desc" class="details">
+                    <td colspan="2" class="desc">Carbon dioxide emissions are those stemming from the burning of fossil fuels and the manufacture of cement. They include carbon dioxide produced during consumption of solid, liquid, and gas fuels and gas flaring.</td>
+                </tr>
+
+            </table>
+            <br/>
+
+            <!-- map -->
+            <div class="map" id="map">
+            </div>
+        </div>
+
+        <div class="col-5">
+            <!-- flag -->
+            <div class="hcenter">
+                <div class="flag-icon flag-icon-{{ country.code }} big_flag"></div>
+            </div>
+            <br>
+
+            <!-- world happiness -->
+            <!-- pop up text -->
+            <div id="happiness_pop" class="popup">Happiness data is acquired from <a href="https://www.kaggle.com/henosergoyan/happiness">Kaggle</a> datasets.
+                <br><i>data is based on 2017's result.</i>
+            </div>
+            <div class="section-title vcenter happiness">
+                <h4 style=" margin-left: 20px;">World Happiness Report</h4>
+            </div>
+            <div class="happiness_info info" data-popbox="happiness_pop"><i class="fa fa-question-circle"></i></div>
+            <table class="happiness">
+                <col style="width:55%">
+                <col style="width:45%">
+                <tr>
+                    <td class="caption">Rank</td>
+                    <td>{{country.happiness_rank}}</td>
+                </tr>
+                <tr>
+                    <td class="caption">Score</td>
+                    <td>{{country.happiness_score}}</td>
+                </tr>
+            </table>
+            <br/>
+
+            <!-- HDI -->
+            <!-- pop up text -->
+            <div id="hdi_pop" class="popup">HDI data is acquired from <a href="http://data.un.org">United Nation</a> public datasets.
+                <br><i>data is based on 2014's result.</i>
+            </div>
+            <div class="section-title vcenter hdi">
+                <h4 style=" margin-left: 20px;">Human Development Index </h4>
+            </div>
+            <div class="hdi_info info" data-popbox="hdi_pop"><i class="fa fa-question-circle"></i></div>
+            <table class="hdi">
+                <col style="width:55%">
+                <col style="width:45%">
+                <tr>
+                    <td class="caption">Rank</td>
+                    <td>{{country.hdi_rank}}</td>
+                </tr>
+                <tr>
+                    <td class="caption">Score</td>
+                    <td>{{country.hdi_score}}</td>
+                </tr>
+            </table>
+            <br/>
+
+            <!-- similar countries -->
+            <!-- pop up text -->
+            <div id="similar-countries_pop" class="popup">We utilize <a href="https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm"><i>K- Nearest Neighbour</i></a> Algorithm to determine the 3 most similar countries to {{name}}.
+                <br>Distance metric that we use for this algorithm is <a href="https://en.wikipedia.org/wiki/Euclidean_distance"><i>Euclidean Distance</i></a>.
+                <br>
+                <br>The algorithm take into account all the relevant data of a country (e.g. population, life expectancy, happiness, hdi, etc.) to determine the 3 most similar countries.
+            </div>
+            <div class="section-title vcenter similar-countries">
+                <h4 style=" margin-left: 20px;">Similar Countries </h4>
+            </div>
+            <div class="similar-countries_info info" data-popbox="similar-countries_pop"><i class="fa fa-question-circle"></i></div>
+            <table class="countries">
+                <col style="width:20%">
+                <col style="width:80%">
+                <tbody>
+                {% for i in range(count): %}
+                <tr onclick="document.location='/countries/{{ neighbour[i].name }}'">
+                    <td>
+                        <span class="flag flag-icon flag-icon-{{ neighbour[i].code }}"></span>
+                    </td>
+                    <td>
+                        {{neighbour[i].name}}
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+    function getMap() {
+        var mapOptions = { zoom: 3 }
+        var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+        let geocoder = new google.maps.Geocoder();
+        let country = '{{country.name}}';
+
+        geocoder.geocode({'address': country}, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                map.setCenter(results[0].geometry.location);
+
+                var marker = new google.maps.Marker({
+                    position: results[0].geometry.location,
+                    map: map
+                });
+          } else {
+              console.log('map error');
+          }
+        });
+    }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTKwYU9yT8FjMlhY18kHnmFuUSaZyLXsQ&callback=getMap"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#population").click(function(){
+            $("#pop_desc").toggle("slow");
+        });
+
+        $("#area").click(function(){
+            $("#area_desc").toggle("slow");
+        });
+
+        $("#pop_density").click(function(){
+            $("#pop_density_desc").toggle("slow");
+        });
+
+        $("#life_expectancy").click(function(){
+            $("#life_expectancy_desc").toggle("slow");
+        });
+
+        $("#gdp").click(function(){
+            $("#gdp_desc").toggle("slow");
+        });
+
+        $("#gdp_growth").click(function(){
+            $("#gdp_growth_desc").toggle("slow");
+        });
+
+        $("#poverty").click(function(){
+            $("#poverty_desc").toggle("slow");
+        });
+
+        $("#birth_rate").click(function(){
+            $("#birth_rate_desc").toggle("slow");
+        });
+
+        $("#death_rate").click(function(){
+            $("#death_rate_desc").toggle("slow");
+        });
+
+        $("#co2_emission").click(function(){
+            $("#co2_emission_desc").toggle("slow");
+        });
+    });
+
+    <!-- pop up function for Statistics -->
+    $('div.stats_info').hover(function (e) {
+        var target = '#' + ($(this).attr('data-popbox'));
+        $(target).show();
+        moveLeft = $(this).outerWidth();
+        moveDown = ($(target).outerHeight() / 2);
+    }, function () {
+        var target = '#' + ($(this).attr('data-popbox'));
+        if (!($(target).hasClass("show"))) {
+            $(target).hide();
+        }
+    });
+
+    $('div.stats_info').mousemove(function (e) {
+        var target = '#' + ($(this).attr('data-popbox'));
+
+        leftD = e.pageX - 650;
+        topD = e.pageY - parseInt(moveDown) - 150;
+
+        $(target).css('top', topD).css('left', leftD);
+    });
+
+    $('div.stats_info').click(function (e) {
+        var target = '#' + ($(this).attr('data-popbox'));
+        if (!($(target).hasClass("show"))) {
+            $(target).show();
+        }
+        $(target).toggleClass("show");
+    });
+
+    <!-- pop up function for Happiness -->
+    $('div.happiness_info').hover(function (e) {
+        var target = '#' + ($(this).attr('data-popbox'));
+        $(target).show();
+        moveLeft = $(this).outerWidth();
+        moveDown = ($(target).outerHeight() / 2);
+    }, function () {
+        var target = '#' + ($(this).attr('data-popbox'));
+        if (!($(target).hasClass("show"))) {
+            $(target).hide();
+        }
+    });
+
+    $('div.happiness_info').mousemove(function (e) {
+        var target = '#' + ($(this).attr('data-popbox'));
+
+        leftD = e.pageX - 1170;
+        topD = e.pageY - parseInt(moveDown) - 150;
+
+        $(target).css('top', topD).css('left', leftD);
+    });
+
+    $('div.happiness_info').click(function (e) {
+        var target = '#' + ($(this).attr('data-popbox'));
+        if (!($(target).hasClass("show"))) {
+            $(target).show();
+        }
+        $(target).toggleClass("show");
+    });
+
+    <!-- pop up function for HDI -->
+    $('div.hdi_info').hover(function (e) {
+        var target = '#' + ($(this).attr('data-popbox'));
+        $(target).show();
+        moveLeft = $(this).outerWidth();
+        moveDown = ($(target).outerHeight() / 2);
+    }, function () {
+        var target = '#' + ($(this).attr('data-popbox'));
+        if (!($(target).hasClass("show"))) {
+            $(target).hide();
+        }
+    });
+
+    $('div.hdi_info').mousemove(function (e) {
+        var target = '#' + ($(this).attr('data-popbox'));
+
+        leftD = e.pageX - 1170;
+        topD = e.pageY - parseInt(moveDown) - 150;
+
+        $(target).css('top', topD).css('left', leftD);
+    });
+
+    $('div.hdi_info').click(function (e) {
+        var target = '#' + ($(this).attr('data-popbox'));
+        if (!($(target).hasClass("show"))) {
+            $(target).show();
+        }
+        $(target).toggleClass("show");
+    });
+
+    <!-- pop up function for Similar Countries -->
+    $('div.similar-countries_info').hover(function (e) {
+        var target = '#' + ($(this).attr('data-popbox'));
+        $(target).show();
+        moveLeft = $(this).outerWidth();
+        moveDown = ($(target).outerHeight() / 2);
+    }, function () {
+        var target = '#' + ($(this).attr('data-popbox'));
+        if (!($(target).hasClass("show"))) {
+            $(target).hide();
+        }
+    });
+
+    $('div.similar-countries_info').mousemove(function (e) {
+        var target = '#' + ($(this).attr('data-popbox'));
+
+        leftD = e.pageX - 1170;
+        topD = e.pageY - parseInt(moveDown) - 200;
+
+        $(target).css('top', topD).css('left', leftD);
+    });
+
+    $('div.similar-countries_info').click(function (e) {
+        var target = '#' + ($(this).attr('data-popbox'));
+        if (!($(target).hasClass("show"))) {
+            $(target).show();
+        }
+        $(target).toggleClass("show");
+    });
+
+    <!-- pop up function for Chart -->
+    $('div.chart').hover(function (e) {
+        var target = '#' + ($(this).attr('data-popbox'));
+        console.log(target)
+        $(target).show();
+        moveLeft = $(this).outerWidth();
+        moveDown = ($(target).outerHeight() / 2);
+    }, function () {
+        var target = '#' + ($(this).attr('data-popbox'));
+        if (!($(target).hasClass("show"))) {
+            $(target).hide();
+        }
+    });
+
+    $('div.chart').mousemove(function (e) {
+        var target = '#' + ($(this).attr('data-popbox'));
+
+        leftD = e.pageX - 500;
+        topD = e.pageY - parseInt(moveDown) + 200;
+
+        $(target).css('top', topD).css('left', leftD);
+    });
+
+    $('div.chart').click(function (e) {
+        var target = '#' + ($(this).attr('data-popbox'));
+        if (!($(target).hasClass("show"))) {
+            $(target).show();
+        }
+        $(target).toggleClass("show");
+    });
+</script>
+
+<!-- Chart JS Script -->
+<script>
+    //Global fontColor
+    Chart.defaults.global.defaultFontColor = 'grey'
+
+    var config = {
+        type: 'radar',
+        data: {
+            labels: ["Life Expectancy",
+                     "GDP Growth", "Poverty",
+                     "CO2 Emissions", "Happiness", "HDI"],
+            datasets: [{
+                label: "a",
+
+                data: [ {{chart_data[2]}},
+                        {{chart_data[4]}}, {{chart_data[5]}},
+                        {{chart_data[9]}}, {{chart_data[10]}}, {{chart_data[11]}}],
+
+                //backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgb(54, 162, 235)',
+                pointStyle: "circle",
+                pointBorderWidth: 1,
+                pointBorderColor: "#ffffff",
+                pointBackgroundColor:'rgb(54, 162, 235)',
+                pointHoverBorderColor:'rgb(54, 162, 235)'
+
+            }]
+        },
+        options: {
+
+            scale: {
+                pointLabels:{
+                    fontSize: 15,
+                    //fontColor:'#36697c'
+                },
+                ticks: {
+                    maxTicksLimit: 2
+                },
+                gridLines: {
+                    color: 'grey'
+                },
+                angleLines: {
+                    color: 'grey'
+                }
+            },
+            legend:
+                {display : false},
+
+        }
+    };
+    window.onload = function() {
+        window.myRadar = new Chart(document.getElementById("canvas"), config);
+    };
+
+</script>
+</body>
+<div class="footer">2018 © Project CSP</div>
+</html>

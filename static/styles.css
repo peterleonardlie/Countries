@@ -1,0 +1,71 @@
+
+body {
+    font-family: 'Karla', sans-serif;
+    min-width: 500px;
+    background-color: #F2F2F2;
+    font-size: 16px;
+    color: #4F4F4F;
+}
+
+div.content {
+    padding: 96px 70px;
+    margin: 0 auto;
+    background-color: white;
+    max-width: 1000px;
+    min-width: 500px;
+    min-height: 100vh;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+span.flag {
+    display: block;
+    min-width: 36px;
+    height: 40px;
+    margin-left: 50px;
+}
+
+table {
+    width: 100%;
+    border-collapse:separate;
+    border-spacing: 0 5px;
+}
+
+tr {
+    height: 50px;
+}
+
+tr.country:hover td {
+    background: #FFFB6E;
+    cursor: pointer;
+}
+
+td {
+    margin: 0 auto;
+    height: 40px;
+    background: #DAF1F8;
+}
+
+#countryTable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    border-bottom: 1px solid #828282;
+}
+
+div.search {
+    width: 60%;
+    margin: 0 auto;
+}
+
+h4.title {
+    text-align: center;
+}
+
+
+div.footer {
+    padding-top: 10px;
+    text-align: center;
+    font-size: 12px;
+    color: gray;
+    padding-bottom: 20px;
+}

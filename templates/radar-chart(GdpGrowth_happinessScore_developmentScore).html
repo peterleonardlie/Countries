@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+
+
+</head>
+<body>
+
+
+
+<div id="chartjs-radar" style="width:60%;height: 60%;">
+    <canvas id="canvas"></canvas>
+</div>
+
+
+
+<script>
+    //Global fontColor
+    Chart.defaults.global.defaultFontColor = 'grey'
+
+    var config = {
+        type: 'radar',
+        data: {
+            labels: ["GDP Growth", "Happiness Score", "HumanDevelopment Score"],
+            datasets: [{
+                label: "",
+
+                <!--data: [{{country.gdp_growth}}, {{country.happiness_score }},{{country.hdi_score}} ], -->
+
+                data: [7.76,4.28,8.93],
+
+                //backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgb(54, 162, 235)',
+                pointStyle: "circle",
+                pointBorderWidth: 1,
+                pointBorderColor: "#ffffff",
+                pointBackgroundColor:'rgb(54, 162, 235)',
+                pointHoverBorderColor:'rgb(54, 162, 235)'
+
+            }]
+        },
+        options: {
+
+            scale: {
+                pointLabels:{
+                    fontSize: 15,
+                    //fontColor:'#36697c'
+                },
+                ticks: {
+                    maxTicksLimit: 2
+                },
+                gridLines: {
+                    color: 'grey'
+                },
+                angleLines: {
+                    color: 'grey'
+                }
+            },
+            legend:
+                {display : false},
+
+        }
+    };
+    window.onload = function() {
+        window.myRadar = new Chart(document.getElementById("canvas"), config);
+    };
+
+</script>
+
+
+
+
+</body>
+</html>

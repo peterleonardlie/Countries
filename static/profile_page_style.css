@@ -1,0 +1,264 @@
+body {
+    font-family: 'Karla', sans-serif;
+    min-width: 500px;
+    background-color: #F2F2F2;
+    font-size: 16px;
+    color: #4F4F4F;
+}
+
+div.container {
+    padding: 20px 70px;
+    margin: 0 auto;
+    background-color: white;
+    max-width: 1000px;
+    min-width: 500px;
+    min-height: 100vh;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+table {
+    width:100%;
+    border-collapse: separate;
+    border-spacing: 0 2px;
+}
+
+tr td.caption {
+    text-align: right;
+    font-weight: bold;
+    padding-right: 20px;
+}
+
+.section-title {
+    height: 50px;
+    margin-bottom: 2px;
+    color: white;
+    width: 100%;
+    text-align: center;
+}
+
+div.statistics {
+    background: #828282;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+table.statistics tr {
+    background-color: #F2F2F2;
+}
+
+div.happiness {
+    background: #219653;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+table.happiness tr {
+    background: #A6E8C2;
+}
+
+div.hdi {
+    background: #2D9CDB;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding-left: -20px;
+}
+
+table.hdi tr {
+    background: #DAF1F8;
+}
+
+.similar-countries {
+    background: #EB5757;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+h4 {
+    font-size: 22px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-family: 'Karla', sans-serif;
+    font-size: 36px;
+    color: #4F4F4F;
+}
+
+div.title {
+    text-align: center;
+}
+
+div.big_flag {
+    width: 200px;
+    min-height: 150px;
+}
+
+span.flag {
+    width:  50px;
+    height: 50px;
+}
+
+h5 {
+    color: #111;
+    font-family: 'Karla', sans-serif;
+    font-size: 16px;
+    text-align: left;
+    color: #4F4F4F;
+    padding-left: 80px;
+    width: 350px;
+}
+
+hr {
+    border: 0.5px solid #000;
+}
+
+.whitespace {
+    padding-bottom: 100px;
+}
+
+.vcenter {
+    display: flex;
+    align-items: center;
+}
+
+.hcenter {
+    text-align: center;
+    width: 100%;
+}
+
+i.fa-arrow-left {
+    font-size: 30px;
+}
+
+i.fa-bar-chart {
+    font-size: 30px;
+}
+
+i.fa-bar-chart:hover {
+    opacity: 0.5;
+}
+
+table.countries {
+    width: 100%;
+    border-collapse:separate;
+    border-spacing: 0 5px;
+}
+
+table.countries tr {
+    height: 50px;
+}
+
+table.countries tr:hover td {
+    background: #FFFB6E;
+    cursor: pointer;
+}
+
+table.countries td {
+    margin: 0 auto;
+    padding-left:10px;
+    height: 40px;
+    background: #FFCACA;
+}
+
+#map {
+    width: 100%;
+    height: 330px;
+}
+
+div.footer {
+    padding-top: 10px;
+    text-align: center;
+    font-size: 12px;
+    color: gray;
+    padding-bottom: 20px;
+}
+
+tr.details {
+    display: none;
+}
+
+td.desc {
+    font-size: 12px;
+    text-align: justify;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-weight: bold;
+}
+
+div.popup {
+    display: none;
+    position: absolute;
+    z-index: 99999;
+    width: 400px;
+    padding: 10px;
+    color: #000000;
+    margin: 0px;
+    font-size: 12px;
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(164, 164, 164, 1);
+    box-shadow: 0px 0px 5px 0px rgba(164, 164, 164, 1);
+    border-radius: 10px;
+    background: white;
+}
+
+div.info {
+    position: absolute;
+    font-size: 30px;
+}
+
+div.stats_info {
+    left: 468px;
+    top: 3px;
+    color: #F2F2F2;
+}
+
+div.stats_info:hover {
+    opacity: 0.5;
+}
+
+div.happiness_info {
+    left: 320px;
+    top: 180px;
+    color: #A6E8C2;
+}
+
+div.happiness_info:hover {
+    opacity: 0.5;
+}
+
+div.hdi_info {
+    left: 320px;
+    top: 315px;
+    color: #DAF1F8;
+}
+
+div.hdi_info:hover {
+    opacity: 0.5;
+}
+
+div.similar-countries_info {
+    left: 320px;
+    top: 450px;
+    color: #FFCACA;
+}
+
+div.similar-countries_info:hover {
+    opacity: 0.5;
+}
+
+div.popup_chart {
+    display: none;
+    position: absolute;
+    z-index: 99999;
+    width: 40%;
+    height: 45%;
+    padding: 10px;
+    color: #000000;
+    margin: 0px;
+    font-size: 12px;
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(164, 164, 164, 1);
+    box-shadow: 0px 0px 5px 0px rgba(164, 164, 164, 1);
+    border-radius: 10px;
+    background: white;
+}

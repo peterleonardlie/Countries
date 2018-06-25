@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Country Data Mashup</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.3.1/css/flag-icon.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+          integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link rel="stylesheet" content-type="text/css" href="{{ url_for('static', filename='styles.css') }}"/>
+    <style>
+    </style>
+</head>
+<body>
+
+<div class="content">
+    <h4 class="title">Search for a country</h4>
+    <form class="input-group mb-3 search" action="/countries/search" method="GET">
+        <input type="text" class="form-control" placeholder="Country Name" value="{{search}}" id="searchName"
+               aria-describedby="basic-addon2" name="query">
+        <div class="input-group-append">
+            <button class="btn btn-outline-primary" type="submit">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </form>
+    <br/>
+
+    <table id="countryTable">
+        <thead>
+        <tr>
+            <th align="center">Flag</th>
+            <th align="center">Country</th>
+            <th align="center">Population</th>
+            <th align="center">Area</th>
+            <th align="center">GDP</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for country in countries: %}
+        <tr class="country" onclick="document.location='/countries/{{country.name}}'">
+            <td><span class="flag flag-icon-background flag-icon-{{country.code}}"></span></td>
+            <td class="text-center">{{country.name}}</td>
+            <td class="text-center">{{country.population}}</td>
+            <td class="text-center">{{country.area}}</td>
+            <td class="text-center">{{country.gdp}}</td>
+
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+search_countries = function() {
+    let name = document.getElementById('searchName').value
+    if (name) {
+        document.location = `/countries/search/${name}`
+    } else {
+        document.location = '/countries/'
+    }
+}
+</script>
+</body>
+<div class="footer">2018 © Project CSP</div>
+</html>

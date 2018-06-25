@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+</head>
+<body>
+
+  <h1>demo</h1>
+  <canvas id="demo" width="200" height="200"></canvas>
+  <canvas id="myChart" width="400" height="400"></canvas>
+
+<!-- demo -->
+  <script>
+    var ctx = document.getElementById("demo").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'radar',
+        data: {
+            labels: ["population","area","pop_density","life_expectancy","gdp","gdp_growth"],
+            datasets: [{
+                label: 'Australia',
+                data: [22,77,37,82,12,23],
+                backgroundColor:"grey"
+            },
+            {
+                label: 'AAA',
+                data: [2,73,57,2,52,33],
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:false
+                    }
+                }]
+            }
+        }
+    });
+
+  </script>
+
+<!--get json file from api -->
+
+<!--
+<script>
+var jsonData = $.ajax({
+      url: '',
+      dataType: 'json',
+  }).done(function (results) {
+
+      var labels = [], data=[];
+      for(var key in results)
+      {
+          labels.push(key);
+          data.push(parseInt(results[key]));
+      }
+      var Tempdata = {
+          labels: labels,
+          datasets: [{
+              data: data,
+          }],
+      }
+      var ctx = document.getElementById("radarChart").getContext('2d');
+      var myRadarChart = new Chart(ctx, {
+          type: 'radar',
+
+          data: Tempdata,
+          }
+      });
+  });
+</script>
+-->
+
+
+
+</body>
+</html>

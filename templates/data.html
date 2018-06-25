@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Data Sources</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.3.1/css/flag-icon.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+          integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link rel="stylesheet" content-type="text/css" href="{{ url_for('static', filename='styles.css') }}"/>
+</head>
+<body>
+
+<div class="nav">
+    <a class="home" href="/"><i class="fa fa-home"></i></a>
+    <div class="links">
+        <div>
+            <a href="/hdi">Human Development Index</a>
+            <a href="/happiness">World Happiness Report</a>
+            <a href="/data">Data Sources</a>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <h4 class="sub-title">Data Sources</h4>
+    <br/>
+    <strong>Country statistics</strong> were sourced from <a href="https://data.worldbank.org">WorldBank</a>.
+    <br>
+    The fields used are:
+    <br>
+    <ul>
+        <li><strong>Population</strong>: a count of all residents of the country</li>
+        <li><strong>Surface area</strong>: the country’s total area, in square kilometers</li>
+        <li><strong>Population density</strong>: The average number of people per sq. km of land area</li>
+        <li><strong>Life expectancy</strong>: the average number of years residents of the country live to</li>
+        <li><strong>GDP</strong>: gross domestic product, which is the value of all goods and services produced in the
+            country in a year, in US dollars
+        </li>
+        <li><strong>GDP growth</strong>: the annual growth rate of the country’s GDP as a percentage</li>
+        <li><strong>Poverty</strong>: the percentage of the population living on less than $1.90 a day</li>
+        <li><strong>Literacy</strong>: the percentage of people ages 15 and above who can read and write</li>
+        <li><strong>Birth rate</strong>: the number of live births occurring during the year, per 1,000 people</li>
+        <li><strong>Death rate</strong>: the number of deaths occurring during the year, per 1,000 people</li>
+        <li><strong>CO2</strong>: the number in metric tons of carbon dioxide emitted per person</li>
+    </ul>
+
+    <br>
+    <strong><a href="http://worldhappiness.report/">World Happiness</a></strong> values were sourced from <a
+        href="https://www.kaggle.com/henosergoyan/happiness">Kaggle</a>.
+    <br>
+    The fields used are:
+    <br>
+    <ul>
+        <li><strong>Score</strong>: a score of the country’s happiness assessed from a survey of residents</li>
+        <li><strong>Rank</strong>: the country’s happiness ranking globally</li>
+    </ul>
+    <em>data is based on 2017's result.</em>
+
+    <br><br>
+    <strong><a href="http://hdr.undp.org/en/content/human-development-index-hdi">
+        Human Development Index
+    </a></strong> values were sourced from the
+    <a href="http://data.un.org/DocumentData.aspx?q=human+development+index&id=378">
+        United Nations
+    </a>.
+    <br>
+    The fields used are:
+    <ul>
+        <li><strong>Score</strong>: a score of the country’s level of human development as assessed by the UN</li>
+        <li><strong>Rank</strong>: the country’s HDI ranking globally</li>
+    </ul>
+    <i>data is based on 2014's result.</i>
+
+    <br><br>
+    <strong>Similar Countries</strong> are determined using a <a
+        href="https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm">K-Nearest Neighbour</a> algorithm.
+    The distance metric for this algorithm is <a href="https://en.wikipedia.org/wiki/Euclidean_distance">Euclidean
+    Distance</a>. The algorithm takes into account <strong>Country Statistics, World Happiness and Human Development
+    Index</strong> to find the 3 most similar countries.
+
+    <br/><br/>
+    The <strong><a href="https://en.wikipedia.org/wiki/Radar_chart">radar chart</a></strong>
+    is created using <a href="https://www.chartjs.org/docs/latest/charts/radar.html">Chart.js</a>
+    and on each line shows the country's percentile in the world for the area. A further out point means
+    a higher percentile, meaning the country is performing better in that area.
+</div>
+</body>
+<div class="footer">2018 © Project CSP</div>
+</html>
